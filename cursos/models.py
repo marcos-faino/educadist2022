@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from .fields import OrdenaCampos
 
 
 class Base(models.Model):
@@ -51,13 +52,15 @@ class Modulo(Base):
                               on_delete=models.CASCADE)
     titulo = models.CharField('Título', max_length=200)
     descricao = models.TextField('Descrição', blank=True)
+    order = OrdenaCampos(blank=True, for_fields=['curso'])
 
     class Meta:
         verbose_name = 'Módulo'
         verbose_name_plural = 'Módulos'
+        ordering = ['order']
 
     def __str__(self):
-        return self.titulo
+        return f'{self.order} - {self.titulo}'
 
 
 class ItemConteudoBase(Base):
@@ -104,3 +107,7 @@ class Conteudo(Base):
                                          )})
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
+    order = OrdenaCampos(blank=True, for_fields=['modulo'])
+
+    class Meta:
+        ordering = ['order']
