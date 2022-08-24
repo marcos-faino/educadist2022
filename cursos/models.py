@@ -23,7 +23,7 @@ class Assunto(Base):
         ordering = ['titulo']
 
     def __str__(self):
-        return f'Assunto {self.titulo}'
+        return self.titulo
 
 
 class Curso(Base):

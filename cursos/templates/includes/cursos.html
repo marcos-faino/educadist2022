@@ -1,0 +1,30 @@
+{% load static %}
+<section data-bs-version="5.1" class="features3 cid-sFGGDvi61Z" id="features3-b">
+
+    <div class="mbr-overlay"></div>
+    <div class="container">
+        <div class="mbr-section-head">
+            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                <strong>Nossos Cursos</strong></h4>
+
+        </div>
+        <div class="row mt-4">
+            {% for c in cursos %}
+            <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img src="{% static 'assets/images/mbr-2.jpg' %}" alt="Mobirise Website Builder">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-8"><strong>{{ c.assunto.titulo }}</strong></h5>
+                        <h5 class="item-title mbr-fonts-style display-5"><strong>{{ c.titulo }}</strong></h5>
+
+                        <p class="mbr-text mbr-fonts-style mt-3 display-7">{{ c.desc_geral }}</p>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
