@@ -3,7 +3,8 @@ from .views import (HomeView,
                     ListarCursosListView,
                     CriarCursoCreateView,
                     AtualizarCursoUpdateView,
-                    ExcluirCursoDeleteView)
+                    ExcluirCursoDeleteView,
+                    ModuloCursoUpdateView,)
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -19,4 +20,7 @@ urlpatterns = [
     path('excluircurso/<pk>/',
          ExcluirCursoDeleteView.as_view(),
          name='excluir_curso'),
+    path('modulo/<pk>/',
+         ModuloCursoUpdateView.as_view(),
+         name='modulo_curso_update'),
 ]

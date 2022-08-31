@@ -1,7 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .models import Curso, Assunto
+from .models import Curso
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic.base import TemplateResponseMixin, View
+from .forms import ModuloFormSet
 
 
 class HomeView(ListView):
@@ -28,6 +31,7 @@ class DonoCursoMixin(DonoMixin,
     model = Curso
     fields = ['assunto', 'titulo', 'slug', 'desc_geral']
     success_url = reverse_lazy('gerenciar_curso_list')
+    context_object_name = 'curso'
 
 
 class DonoCursoFormMixin(DonoCursoMixin, DonoEditarMixin):
@@ -51,3 +55,27 @@ class AtualizarCursoUpdateView(DonoCursoFormMixin, UpdateView):
 class ExcluirCursoDeleteView(DonoCursoMixin, DeleteView):
     template_name = 'gerenciar/curso/excluir.html'
     permission_required = 'cursos.delete_curso'
+
+
+class ModuloCursoUpdateView(TemplateResponseMixin, View):
+    template_name = 'gerenciar/modulo/formset.html'
+    curso = None
+
+    def get_formset(self, data=None):
+        return ModuloFormSet(instance=self.curso, data=data)
+
+    def dispatch(self, request, pk, *args, **kwargs):
+        self.curso = get_object_or_404(Curso,id=pk,
+                                       dono=request.user)
+        return super().dispatch(request, pk, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        formset = self.get_formset(data=request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('gerenciar_curso_list')
+        return self.render_to_response({'curso': self.curso, 'formset': formset})
+
+    def get(self, request, *args, **kwargs):
+        formset = self.get_formset()
+        return self.render_to_response({'curso': self.curso, 'formset': formset})

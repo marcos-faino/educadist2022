@@ -17,8 +17,7 @@
                             <strong>{{ c.titulo }}({{ c.assunto.titulo }})</strong>
                         </h4>
                         <h5 class="icon-text mbr-black mbr-fonts-style display-4">{{ c.desc_geral }} </h5>
-                    </div>
-                    <div>
+                        <div>
                         <a href="{% url 'editar_curso' c.id %}"
                            class="btn btn-info">
                             Editar
@@ -27,10 +26,21 @@
                            class="btn btn-warning">
                             Excluir
                         </a>
+                        <a href="{% url 'modulo_curso_update' c.id %}"
+                           class="btn btn-secondary">
+                            Editar Módulos
+                        </a>
                     </div>
-                </div>
+                    </div>
 
+                </div>
+                {% empty %}
+                <h3>Você não possui nenhum curso cadastrado!</h3>
                 {% endfor %}
+                <p class="text-center">
+                    <a href="{% url 'criar_curso' %}"
+                       class="btn btn-success btn-lg">Novo...</a>
+                </p>
             </div>
         </div>
     </div>

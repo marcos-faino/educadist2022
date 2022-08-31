@@ -20,9 +20,9 @@ import cursos
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('contas/login/', views.LoginView.as_view(),
+    path('accounts/login/', views.LoginView.as_view(),
          name='login'),
-    path('contas/logout/', views.LogoutView.as_view(),
+    path('accounts/logout/', views.LogoutView.as_view(),
          name='logout'),
     path('', include('cursos.urls')),
 ]
