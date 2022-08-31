@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-8">
-                <h1 class="bg-dark text-white">Cursos</h1>
+                <h1 class="bg-dark text-white p-3">Cursos</h1>
                 {% for c in cursos %}
                 <div class="item mbr-flex border border-success rounded p-3">
                     <div class="icon-box">
@@ -18,7 +18,18 @@
                         </h4>
                         <h5 class="icon-text mbr-black mbr-fonts-style display-4">{{ c.desc_geral }} </h5>
                     </div>
+                    <div>
+                        <a href="{% url 'editar_curso' c.id %}"
+                           class="btn btn-info">
+                            Editar
+                        </a>
+                        <a href="{% url 'excluir_curso' c.id %}"
+                           class="btn btn-warning">
+                            Excluir
+                        </a>
+                    </div>
                 </div>
+
                 {% endfor %}
             </div>
         </div>

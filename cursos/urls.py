@@ -13,10 +13,10 @@ urlpatterns = [
     path('criarcurso/',
          CriarCursoCreateView.as_view(),
          name='criar_curso'),
-    path('editarcurso/',
+    path('editarcurso/<pk>/',
          AtualizarCursoUpdateView.as_view(),
          name='editar_curso'),
-    path('excluircurso/',
+    path('excluircurso/<pk>/',
          ExcluirCursoDeleteView.as_view(),
          name='excluir_curso'),
 ]
