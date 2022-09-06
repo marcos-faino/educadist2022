@@ -46,10 +46,16 @@
                     </li>
                     <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="{% url 'home'%}#map3-6">Onde estamos<br></a>
                     </li>
-					<li class="nav-item">
-                        {% if request.user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
+   					    <li class="nav-item">
+                            <a class="nav-link link text-black text-primary display-4"
+                               href="{% url 'gerenciar_curso_list' %}">Meus Cursos<br></a>
+                        </li>
+
+					    <li class="nav-item">
                             <a class="nav-link link text-black text-primary display-4"
                                href="{% url 'logout' %}">Logout<br></a>
+                        </li>
                         {% else %}
                             <a class="nav-link link text-black text-primary display-4"
                                href="{% url 'login' %}">Login<br></a>
