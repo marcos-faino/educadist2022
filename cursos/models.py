@@ -14,8 +14,17 @@ class Base(models.Model):
 
 
 class Assunto(Base):
+    ICONE_CHOICES = (
+        ('mobi-mbri-globe-2', 'globo'),
+        ('mobi-mbri-update', 'update'),
+        ('mobi-mbri-user-2', 'user'),
+        ('mobi-mbri-delivery', 'delivery'),
+        ('mobi-mbri-desktop', 'desktop'),
+        ('mobi-mbri-features', 'features'),
+    )
     titulo = models.CharField('Título', max_length=200)
     slug = models.SlugField('Slug', max_length=200, unique=True)
+    icone = models.CharField('Ícone', max_length=30, choices=ICONE_CHOICES, default='mobi-mbri-features')
 
     class Meta:
         verbose_name = 'Assunto'
@@ -27,6 +36,15 @@ class Assunto(Base):
 
 
 class Curso(Base):
+    ICONE_CHOICES = (
+        ('mobi-mbri-globe-2', 'globo'),
+        ('mobi-mbri-update', 'update'),
+        ('mobi-mbri-user-2', 'user'),
+        ('mobi-mbri-delivery', 'delivery'),
+        ('mobi-mbri-desktop', 'desktop'),
+        ('mobi-mbri-features', 'features'),
+    )
+
     dono = models.ForeignKey(User,
                              related_name='cursos_user',
                              on_delete=models.CASCADE)
@@ -36,6 +54,7 @@ class Curso(Base):
     titulo = models.CharField('Título', max_length=200)
     slug = models.SlugField('Slug', max_length=200)
     desc_geral = models.TextField('Descrição')
+    icone = models.CharField('Ícone', max_length=30, choices=ICONE_CHOICES, default='features')
 
     class Meta:
         verbose_name = 'Curso'

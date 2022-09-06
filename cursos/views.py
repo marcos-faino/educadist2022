@@ -29,7 +29,7 @@ class DonoCursoMixin(DonoMixin,
                      LoginRequiredMixin,
                      PermissionRequiredMixin):
     model = Curso
-    fields = ['assunto', 'titulo', 'slug', 'desc_geral']
+    fields = ['assunto', 'titulo', 'slug', 'desc_geral','icone']
     success_url = reverse_lazy('gerenciar_curso_list')
     context_object_name = 'curso'
 

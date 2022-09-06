@@ -8,9 +8,10 @@
             <div class="col-12 col-lg-8">
                 <h1 class="bg-dark text-white p-3">Cursos</h1>
                 {% for c in cursos %}
+                {{ c.icone }}<br>
                 <div class="item mbr-flex border border-success rounded p-3">
                     <div class="icon-box">
-                        <span class="mbr-iconfont mobi-mbri-globe-2 mobi-mbri"></span>
+                        <span class="mbr-iconfont {{ c.icone }} mobi-mbri"></span>
                     </div>
                     <div class="text-box">
                         <h4 class="icon-title mbr-black mbr-fonts-style display-7">
