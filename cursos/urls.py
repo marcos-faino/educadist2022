@@ -4,7 +4,8 @@ from .views import (HomeView,
                     CriarCursoCreateView,
                     AtualizarCursoUpdateView,
                     ExcluirCursoDeleteView,
-                    ModuloCursoUpdateView,)
+                    ModuloCursoUpdateView,
+                    CriarAtualizarConteudoView, ExcluirConteudoView, )
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -23,4 +24,10 @@ urlpatterns = [
     path('modulo/<pk>/',
          ModuloCursoUpdateView.as_view(),
          name='modulo_curso_update'),
+    path('modulo/<int:modulo_id>/conteudo/<model_name>/criar/',
+         CriarAtualizarConteudoView.as_view(), name='criar_conteudo_modulo'),
+    path('modulo/<int:modulo_id>/conteudo/<model_name>/<id>/',
+         CriarAtualizarConteudoView.as_view(), name='atualizar_conteudo_modulo'),
+    path('conteudo/<int:id_cont>/excluir/', ExcluirConteudoView.as_view(),
+         name='excluir_conteudo_modulo'),
 ]

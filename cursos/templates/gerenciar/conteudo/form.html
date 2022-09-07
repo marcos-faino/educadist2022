@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block titulo %}
+    {% if conteudo %}
+        Editando Conteudo do Módulo {{ modulo.titulo }}
+    {% else %}
+        Criando novo conteudo para o Módulo {{ modulo.titulo }}
+    {% endif %}
+{% endblock %}
+{% block conteudo %}
+<section data-bs-version="5.1" class="features12 cid-te2ivoWk7A" id="features13-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <h1 class="bg-dark text-white p-3">
+                {% if conteudo %}
+                    Editando Conteudo {{ conteudo.titulo }}<br> do Módulo {{ modulo.titulo }}
+                {% else %}
+                    Criando novo {{ model_name }} para o <br>Módulo {{ modulo.titulo }}
+                {% endif %}
+                </h1>
+                <div class="item mbr-flex border border-success rounded p-3">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|bootstrap }}
+                        <p>
+                            <input type="submit" class="btn btn-dark btn-lg"
+                                   value="Salvar">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
