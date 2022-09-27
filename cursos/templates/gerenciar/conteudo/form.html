@@ -14,9 +14,9 @@
             <div class="col-12 col-lg-8">
                 <h1 class="bg-dark text-white p-3">
                 {% if conteudo %}
-                    Editando Conteudo {{ conteudo.titulo }}<br> do Módulo {{ modulo.titulo }}
+                    Editando Conteudo {{ conteudo.titulo }} do Módulo <br><span class="bg-light text-secondary">{{ modulo.titulo }}</span>
                 {% else %}
-                    Criando novo {{ model_name }} para o <br>Módulo {{ modulo.titulo }}
+                    Criando novo {{ model_name }} para o Módulo <br><span class="bg-light text-secondary">{{ modulo.titulo }} </span>
                 {% endif %}
                 </h1>
                 <div class="item mbr-flex border border-success rounded p-3">
