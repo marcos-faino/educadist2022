@@ -135,6 +135,7 @@ class CriarAtualizarConteudoView(TemplateResponseMixin, View):
                                         'conteudo': self.obj,
                                         'modulo': self.modulo})
 
+
 class ExcluirConteudoView(View):
 
     def post(self, request, id_cont):
@@ -145,3 +146,13 @@ class ExcluirConteudoView(View):
         conteudo.item.delete()
         conteudo.delete()
         return redirect('conteudo_modulo_list', modulo.id)
+
+
+class ListarConteudoModuloView(TemplateResponseMixin, View):
+    template_name = 'gerenciar/modulo/listar_conteudos.html'
+
+    def get(self, request, modulo_id):
+        modulo = get_object_or_404(Modulo,
+                                   id=modulo_id,
+                                   curso__dono=request.user)
+        return self.render_to_response({'modulo': modulo})

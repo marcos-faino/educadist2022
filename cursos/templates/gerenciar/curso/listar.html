@@ -8,7 +8,6 @@
             <div class="col-12 col-lg-8">
                 <h1 class="bg-dark text-white p-3">Cursos</h1>
                 {% for c in cursos %}
-                {{ c.icone }}<br>
                 <div class="item mbr-flex border border-success rounded p-3">
                     <div class="icon-box">
                         <span class="mbr-iconfont {{ c.icone }} mobi-mbri"></span>
@@ -31,6 +30,12 @@
                            class="btn btn-secondary">
                             Editar Módulos
                         </a>
+                        {% if c.modulos_curso.count > 0 %}
+                        <a href="{% url 'conteudo_modulo_list' c.modulos_curso.first.id %}"
+                           class="btn btn-primary">
+                            Gerenciar conteúdos.
+                        </a>
+                        {% endif %}
                     </div>
                     </div>
 

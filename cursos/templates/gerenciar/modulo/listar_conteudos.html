@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load curso %}
+{% load static %}
+{% block titulo %}Listar Conteúdo Módulos{% endblock %}
+{% block conteudo %}
+{% with curso=modulo.curso %}
+<section class="features12 cid-te2ivoWk7A" data-bs-version="5.1" id="features13-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+                <h1>Curso: {{ curso.titulo }}</h1>
+                <div class="card-wrapper">
+                    <div class="card-box align-left">
+                        <h4 class="card-title mbr-fonts-style mb-4 display-2">
+                            <strong>Módulos</strong>
+                        </h4>
+                        <ul class="list-group">
+                        {% for m in curso.modulos_curso.all %}
+                            <li class="list-group-item
+                                                            {% if m == modulo %}
+                                                                active
+                                                            {% endif %}
+                                                            " data-id="{{ m.id }}"
+                            >
+                                <a href="{% url 'conteudo_modulo_list' m.id %}">
+                                    <span>Módulo
+                                        <span class="bg-primary text-black">
+                                            {{ m.order|add:1 }}
+                                        </span>
+                                    </span>
+                                    {{ m.titulo }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li>Não existem módulos cadastrados!</li>
+                        {% endfor %}
+                        </ul>
+                        <p>
+                            <a class="btn btn-secondary"
+                               href="{% url 'modulo_curso_update' curso.id %}">Editar Módulos</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <h1 class="bg-dark text-white p-3">
+                    Modulo {{ modulo.order }}: {{ modulo.titulo }}
+                </h1>
+                <h2>Conteúdos:</h2>
+                {% for cont in modulo.conteudos_modulo.all %}
+                <div class="item mbr-flex border border-success rounded p-3">
+                    <div class="text-box" data-id="{{ cont.id }}">
+                    {% with item=conteudo.item %}
+                        <h4 class="icon-title mbr-black mbr-fonts-style display-7">
+                            <strong>{{ item }}</strong>
+                        </h4>
+                        <div>
+                            <a class="btn btn-info"
+                               href="{% url 'atualizar_conteudo_modulo' modulo.id item|model_name item.id %}">
+                                Editar
+                            </a>
+                            <form action="{% url 'excluir_conteudo_modulo' cont.id %}"
+                               method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Excluir">
+                            </form>
+                    {% endwith %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <h3>Este módulo ainda não possui conteúdo</h3>
+                {% endfor %}
+                <div class="text-center">
+                    <a class="btn btn-success"
+                       href="{% url 'criar_conteudo_modulo' modulo.id 'texto' %}">Texto</a>
+                    <a class="btn btn-success"
+                       href="{% url 'criar_conteudo_modulo' modulo.id 'imagem' %}">Imagem</a>
+                    <a class="btn btn-success"
+                       href="{% url 'criar_conteudo_modulo' modulo.id 'video' %}">Vídeo</a>
+                    <a class="btn btn-success"
+                       href="{% url 'criar_conteudo_modulo' modulo.id 'arquivo' %}">Arquivo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endwith %}
+{% endblock %}

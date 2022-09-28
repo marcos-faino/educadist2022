@@ -1,11 +1,5 @@
 from django.urls import path
-from .views import (HomeView,
-                    ListarCursosListView,
-                    CriarCursoCreateView,
-                    AtualizarCursoUpdateView,
-                    ExcluirCursoDeleteView,
-                    ModuloCursoUpdateView,
-                    CriarAtualizarConteudoView, ExcluirConteudoView, )
+from .views import *
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -30,4 +24,7 @@ urlpatterns = [
          CriarAtualizarConteudoView.as_view(), name='atualizar_conteudo_modulo'),
     path('conteudo/<int:id_cont>/excluir/', ExcluirConteudoView.as_view(),
          name='excluir_conteudo_modulo'),
+    path('modulo/<int:modulo_id>/conteudos/',
+         ListarConteudoModuloView.as_view(),
+         name='conteudo_modulo_list'),
 ]
