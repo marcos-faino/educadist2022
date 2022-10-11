@@ -1,0 +1,30 @@
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
+    path('meuscursos/',
+         ListarCursosListView.as_view(),
+         name='gerenciar_curso_list'),
+    path('criarcurso/',
+         CriarCursoCreateView.as_view(),
+         name='criar_curso'),
+    path('editarcurso/<pk>/',
+         AtualizarCursoUpdateView.as_view(),
+         name='editar_curso'),
+    path('excluircurso/<pk>/',
+         ExcluirCursoDeleteView.as_view(),
+         name='excluir_curso'),
+    path('modulo/<pk>/',
+         ModuloCursoUpdateView.as_view(),
+         name='modulo_curso_update'),
+    path('modulo/<int:modulo_id>/conteudo/<model_name>/criar/',
+         CriarAtualizarConteudoView.as_view(), name='criar_conteudo_modulo'),
+    path('modulo/<int:modulo_id>/conteudo/<model_name>/<id>/',
+         CriarAtualizarConteudoView.as_view(), name='atualizar_conteudo_modulo'),
+    path('conteudo/<int:id_cont>/excluir/', ExcluirConteudoView.as_view(),
+         name='excluir_conteudo_modulo'),
+    path('conteudomodulo/<int:modulo_id>/conteudos/',
+         ListarConteudoModuloView.as_view(),
+         name='conteudo_modulo_list'),
+]

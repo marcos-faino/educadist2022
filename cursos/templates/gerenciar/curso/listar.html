@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Listar Cursos{% endblock %}
+{% block conteudo %}
+<section data-bs-version="5.1" class="features12 cid-te2ivoWk7A" id="features13-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <h1 class="bg-dark text-white p-3">Cursos</h1>
+                {% for c in cursos %}
+                <div class="item mbr-flex border border-success rounded p-3">
+                    <div class="icon-box">
+                        <span class="mbr-iconfont {{ c.icone }} mobi-mbri"></span>
+                    </div>
+                    <div class="text-box">
+                        <h4 class="icon-title mbr-black mbr-fonts-style display-7">
+                            <strong>{{ c.titulo }}({{ c.assunto.titulo }})</strong>
+                        </h4>
+                        <h5 class="icon-text mbr-black mbr-fonts-style display-4">{{ c.desc_geral }} </h5>
+                        <div>
+                        <a href="{% url 'editar_curso' c.id %}"
+                           class="btn btn-info">
+                            Editar
+                        </a>
+                        <a href="{% url 'excluir_curso' c.id %}"
+                           class="btn btn-warning">
+                            Excluir
+                        </a>
+                        <a href="{% url 'modulo_curso_update' c.id %}"
+                           class="btn btn-secondary">
+                            Editar Módulos
+                        </a>
+                        {% if c.modulos_curso.count > 0 %}
+                        <a href="{% url 'conteudo_modulo_list' c.modulos_curso.first.id %}"
+                           class="btn btn-primary">
+                            Gerenciar conteúdos.
+                        </a>
+                        {% endif %}
+                    </div>
+                    </div>
+
+                </div>
+                {% empty %}
+                <h3>Você não possui nenhum curso cadastrado!</h3>
+                {% endfor %}
+                <p class="text-center">
+                    <a href="{% url 'criar_curso' %}"
+                       class="btn btn-success btn-lg">Novo...</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

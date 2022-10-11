@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block titulo %}
+    Logout Educadist
+{% endblock %}
+
+{% block conteudo %}
+<section data-bs-version="5.1" class="header19 cid-sFGzrhlvIh" id="header19-3">
+    <div class="mbr-overlay" style="opacity: 0.8; background-color: rgb(53, 53, 53);">
+    </div>
+
+    <div class="container">
+        <div class="media-container">
+            <div class="col-md-12 col-lg-6
+                        m-auto form-floating
+                        bg-light rounded p-3"
+                 style="opacity:0.75">
+               {% if form.errors %}
+                    <p class="bg-warning rounded p-3">
+                        Usuário ou senha inválidos.
+                    </p>
+               {% else %}
+                    <p class="bg-success rounded p-3">
+                        Por favor informe seu login e senha.
+                    </p>
+               {% endif %}
+
+                <form action="{% url 'login' %}"
+                      method="post">
+                    {% csrf_token %}
+                    {{ form|bootstrap }}
+                    <p>
+                        <input type="submit"
+                               class="btn btn-primary"
+                               value="Login">
+                    </p>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
