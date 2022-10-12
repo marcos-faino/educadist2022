@@ -40,7 +40,8 @@
                 </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="{% url 'home' %}#features19-a">Sobre</a></li>
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                    <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="{% url 'home' %}#features19-a">Sobre</a></li>
                     <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="{% url 'home'%}#features3-b">Cursos</a></li>
                     <li class="nav-item"><a class="nav-link link text-black text-primary display-4" href="{% url 'home'%}#contacts1-c">Fale Conosco<br></a>
                     </li>
@@ -70,6 +71,13 @@
 </section>
   {% block conteudo %}
   {% endblock %}
-
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script>
+      $(document).ready(function(){
+          {% block domready %}
+          {% endblock %}
+      });
+  </script>
 </body>
 </html>

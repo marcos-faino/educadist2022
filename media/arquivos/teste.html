@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script>
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6" id="div1" width="100" height="100" 
+        ondrop="drop(event)" ondragover="allowDrop(event)" 
+        draggable="true" ondragstart="drag(event)">
+    </div>
+    <div class="col-sm-6" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <img id="drag1" src="imagens/2.png" draggable="true" ondragstart="drag(event)" width="100" height="100">
+    </div>
+  </div>
+</div>
+</body>
+</html>

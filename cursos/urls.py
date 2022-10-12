@@ -24,7 +24,11 @@ urlpatterns = [
          CriarAtualizarConteudoView.as_view(), name='atualizar_conteudo_modulo'),
     path('conteudo/<int:id_cont>/excluir/', ExcluirConteudoView.as_view(),
          name='excluir_conteudo_modulo'),
-    path('modulo/<int:modulo_id>/conteudos/',
+    path('conteudomodulo/<int:modulo_id>/conteudos/',
          ListarConteudoModuloView.as_view(),
          name='conteudo_modulo_list'),
+    path('modulos/reordenar/', ReordenarModulosView.as_view(),
+         name='reordenar_modulos'),
+    path('conteudos/reordenar/', ReordenarConteudosView.as_view(),
+         name='reordenar_conteudos'),
 ]

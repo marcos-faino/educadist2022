@@ -7,6 +7,7 @@ from django.views.generic.base import TemplateResponseMixin, View
 from .forms import ModuloFormSet
 from django.forms.models import modelform_factory
 from django.apps import apps
+from braces.views import JsonRequestResponseMixin
 
 
 class HomeView(ListView):
@@ -91,7 +92,8 @@ class CriarAtualizarConteudoView(TemplateResponseMixin, View):
 
     def get_model(self, model_name):
         if model_name in ['texto', 'video', 'imagem', 'arquivo']:
-            return apps.get_model('cursos',
+            # alterei aqui adicionando app_label
+            return apps.get_model(app_label='cursos',
                                   model_name=model_name)
         return None
 
@@ -114,10 +116,9 @@ class CriarAtualizarConteudoView(TemplateResponseMixin, View):
 
     def get(self, request, modulo_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
+        # alterei aqui para removendo itens desnecessários.
         return self.render_to_response({'form': form,
-                                        'conteudo': self.obj,
-                                        'model_name': model_name,
-                                        'modulo': self.modulo})
+                                        'conteudo': self.obj})
 
     def post(self, request, modulo_id, model_name, id=None):
         form = self.get_form(self.model,
@@ -132,8 +133,7 @@ class CriarAtualizarConteudoView(TemplateResponseMixin, View):
                 Conteudo.objects.create(modulo=self.modulo, item=obj)
             return redirect('conteudo_modulo_list', self.modulo.id)
         return self.render_to_response({'form': form,
-                                        'conteudo': self.obj,
-                                        'modulo': self.modulo})
+                                        'conteudo': self.obj})
 
 
 class ExcluirConteudoView(View):
@@ -156,3 +156,23 @@ class ListarConteudoModuloView(TemplateResponseMixin, View):
                                    id=modulo_id,
                                    curso__dono=request.user)
         return self.render_to_response({'modulo': modulo})
+
+
+class ReordenarModulosView(JsonRequestResponseMixin, View):
+
+    def post(self, request):
+        for id_modulo, order in self.request_json.items():
+            modulo = Modulo.objects.filter(id=id_modulo,
+                                           curso__dono=request.user)
+            modulo.update(order=order)
+        return self.render_json_response({'salvo': 'OK'})
+
+
+class ReordenarConteudosView(JsonRequestResponseMixin, View):
+
+    def post(self, request):
+        for id_cont, order in self.request_json.items():
+            conteudo = Conteudo.objects.filter(id=id_cont,
+                                               modulo__curso__dono=request.user)
+            conteudo.update(order=order)
+        return self.render_json_response({'salvo': 'OK'})
