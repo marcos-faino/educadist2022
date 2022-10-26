@@ -3,6 +3,14 @@
 
     <div class="mbr-overlay"></div>
     <div class="container">
+        <div class="col-md-12 col-lg-10 m-auto align-center">
+           <div class="mbr-section-btn align-center">
+               {% for a in assuntos %}
+               <a class="btn btn-primary display-4"
+                  href="{% url 'home_assunto' a.slug %}#features3-b">{{ a.titulo }}</a>
+               {% endfor %}
+           </div>
+        </div>
         <div class="mbr-section-head">
             <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
                 <strong>Nossos Cursos</strong></h4>
@@ -11,6 +19,7 @@
         <div class="row mt-4">
             {% for c in cursos %}
             <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <a href="{% url 'detalhe_curso' c.id %}">
                 <div class="item-wrapper">
                     <div class="item-img">
                         <img src="{% static 'assets/images/mbr-2.jpg' %}" alt="Mobirise Website Builder">
@@ -23,6 +32,7 @@
                     </div>
 
                 </div>
+                </a>
             </div>
             {% endfor %}
         </div>

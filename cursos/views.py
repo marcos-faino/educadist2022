@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Count
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .models import Curso, Modulo, Conteudo
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from .models import Curso, Modulo, Conteudo, Assunto
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.base import TemplateResponseMixin, View
 from .forms import ModuloFormSet
@@ -14,6 +15,28 @@ class HomeView(ListView):
     template_name = 'index.html'
     model = Curso
     context_object_name = 'cursos'
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        assuntos = Assunto.objects.annotate(total_cursos=Count('cursos_assunto'))
+        cursos = Curso.objects.annotate(total_modulos=Count('modulos_curso'))
+        assunto = None
+        if 'slug' in self.kwargs:
+            assunto = get_object_or_404(Assunto, slug=self.kwargs['slug'])
+            cursos = Curso.objects.filter(assunto=assunto)
+        contexto['assuntos'] = assuntos
+        contexto['assunto'] = assunto
+        contexto['cursos'] = cursos
+        return contexto
+
+
+class DetalharCursoView(DetailView):
+    model = Curso
+    template_name = 'curso/detalhar.html'
+    context_object_name = 'curso'
+
+
+
 
 
 class DonoMixin(object):

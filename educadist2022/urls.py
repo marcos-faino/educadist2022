@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views
-import cursos
+from cursos.views import HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,7 @@ urlpatterns = [
          name='login'),
     path('accounts/logout/', views.LogoutView.as_view(),
          name='logout'),
-    path('', include('cursos.urls')),
+    path('cursos/', include('cursos.urls')),
+    path('', HomeView.as_view(), name='home'),
+    path('assunto/<slug:slug>/', HomeView.as_view(), name='home_assunto'),
 ]
